@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link as ScrollLink } from 'react-scroll'
 import { FiMenu, FiX } from 'react-icons/fi'
+import logo from '../assets/thecorefusion.png'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -33,11 +34,27 @@ const Navbar = () => {
           justifyContent: 'space-between',
           height: '64px'
         }}>
-          {/* Logo */}
+
+          {/* ✅ Logo (Clickable) */}
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <div className="gradient-text" style={{ fontSize: '24px', fontWeight: 'bold' }}>
-              TheCoreFusion
-            </div>
+            <ScrollLink
+              to="hero"
+              smooth={true}
+              duration={500}
+              offset={-64}
+              style={{ cursor: 'pointer' }}
+            >
+              <img
+                src={logo}
+                alt="TheCoreFusion Logo"
+                style={{
+                  height: '50px',
+                  width: 'auto',
+                  objectFit: 'contain',
+                  filter: 'drop-shadow(0 0 6px rgba(34, 211, 238, 0.5))'
+                }}
+              />
+            </ScrollLink>
           </div>
 
           {/* Desktop Menu */}
@@ -140,6 +157,7 @@ const Navbar = () => {
         )}
       </div>
 
+      {/* Responsive Styles */}
       <style>{`
         @media (min-width: 768px) {
           .desktop-menu { display: flex !important; }
