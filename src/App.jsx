@@ -6,16 +6,20 @@ import Services from './components/Services'
 import Portfolio from './components/Portfolio'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import WhyChooseUs from './components/WhyChooseUs'  
 
 function App() {
   return (
     <div style={{ backgroundColor: '#111827', color: '#f3f4f6', overflow: 'hidden' }}>
       <Navbar />
       <Hero />
-      <About />
+      <WhyChooseUs />
       <Services />
+      <About />
       <Portfolio />
-      <Contact />
+      
+      
+      {/* <Contact /> */}
       <Footer />
     </div>
   )

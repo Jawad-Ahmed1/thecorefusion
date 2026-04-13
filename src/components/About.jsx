@@ -62,9 +62,9 @@ const About = () => {
           }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {[
-                { number: '300+', label: 'Projects Completed', desc: 'Across various industries' },
-                { number: '150+', label: 'Happy Clients', desc: 'Worldwide partnerships' },
-                { number: '95%', label: 'Client Satisfaction', desc: 'Proven track record' }
+                { number: '150+', label: 'Projects Completed', desc: 'Across various industries' },
+                { number: '100+', label: 'Happy Clients', desc: 'Worldwide partnerships' },
+                { number: '90%', label: 'Client Satisfaction', desc: 'Proven track record' }
               ].map((stat, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
                   <div style={{ fontSize: '36px', fontWeight: 'bold', color: '#06b6d4' }}>{stat.number}</div>
@@ -98,36 +98,6 @@ const About = () => {
               </p>
             </div>
           ))}
-        </div>
-
-        {/* Why Choose Us */}
-        <div>
-          <h3 style={{ fontSize: '30px', fontWeight: 'bold', marginBottom: '48px', textAlign: 'center' }}>
-            Why Choose TheCoreFusion
-          </h3>
-          <div className="grid-4">
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                style={{
-                  backgroundColor: 'rgba(31, 41, 55, 0.3)',
-                  border: '1px solid #374151',
-                  borderRadius: '8px',
-                  padding: '24px',
-                  transition: 'border-color 0.3s ease',
-                  cursor: 'pointer'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.borderColor = '#06b6d4'}
-                onMouseLeave={(e) => e.currentTarget.style.borderColor = '#374151'}
-              >
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', marginBottom: '16px' }}>
-                  <FiCheckCircle style={{ color: '#06b6d4', width: '24px', height: '24px', marginTop: '4px', flexShrink: 0 }} />
-                  <h4 style={{ fontWeight: '600', fontSize: '18px' }}>{feature.title}</h4>
-                </div>
-                <p style={{ color: '#9ca3af', fontSize: '14px' }}>{feature.description}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </section>

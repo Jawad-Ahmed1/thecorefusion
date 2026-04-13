@@ -5,6 +5,10 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Manrope', 'sans-serif'],
+        display: ['Designer', 'serif'],
+      },
       colors: {
         dark: {
           50: '#f9fafb',

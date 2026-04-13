@@ -216,7 +216,7 @@ const Footer = () => {
         fontSize: '12px',
         borderTop: '1px solid #374151'
       }}>
-        <p>Made with ❤️ for innovative businesses worldwide</p>
+        <p>Copyright 2025 thecoreFusion All Rights Reserved by thecoreFusion</p>
       </div>
     </footer>
   )
