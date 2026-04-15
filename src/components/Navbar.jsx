@@ -1,13 +1,56 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Link as ScrollLink } from 'react-scroll'
 import { FiMenu, FiX } from 'react-icons/fi'
+import gsap from 'gsap'
 import logo from '../assets/thecorefusion.png'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const servicesRef = useRef(null)
 
   const toggleMenu = () => {
     setIsOpen(!isOpen)
+  }
+
+  // GSAP animations for Services text
+  const handleServicesHover = () => {
+    if (!servicesRef.current) return
+
+    // Pulse glow effect
+    gsap.to(servicesRef.current, {
+      color: '#06b6d4',
+      textShadow: '0 0 20px rgba(6, 182, 212, 0.8), 0 0 40px rgba(6, 182, 212, 0.5)',
+      duration: 0.3,
+      ease: 'power2.out'
+    })
+
+    // Scale and rotate animation
+    gsap.to(servicesRef.current, {
+      scale: 1.15,
+      rotation: 3,
+      duration: 0.3,
+      ease: 'elastic.out'
+    })
+  }
+
+  const handleServicesHoverEnd = () => {
+    if (!servicesRef.current) return
+
+    // Reset glow
+    gsap.to(servicesRef.current, {
+      color: '#d1d5db',
+      textShadow: 'none',
+      duration: 0.3,
+      ease: 'power2.out'
+    })
+
+    // Reset scale and rotation
+    gsap.to(servicesRef.current, {
+      scale: 1,
+      rotation: 0,
+      duration: 0.3,
+      ease: 'elastic.out'
+    })
   }
 
   const menuItems = [
@@ -67,14 +110,28 @@ const Navbar = () => {
                 smooth={true}
                 offset={-64}
                 duration={500}
+                ref={item.label === 'Services' ? servicesRef : null}
                 style={{
                   padding: '8px 16px',
                   color: '#d1d5db',
                   cursor: 'pointer',
-                  transition: 'color 0.3s ease'
+                  transition: 'color 0.3s ease',
+                  display: 'inline-block'
                 }}
-                onMouseEnter={(e) => e.target.style.color = '#22d3ee'}
-                onMouseLeave={(e) => e.target.style.color = '#d1d5db'}
+                onMouseEnter={(e) => {
+                  if (item.label === 'Services') {
+                    handleServicesHover()
+                  } else {
+                    e.target.style.color = '#22d3ee'
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (item.label === 'Services') {
+                    handleServicesHoverEnd()
+                  } else {
+                    e.target.style.color = '#d1d5db'
+                  }
+                }}
               >
                 {item.label}
               </ScrollLink>
