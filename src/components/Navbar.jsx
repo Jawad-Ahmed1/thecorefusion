@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { Link as ScrollLink } from 'react-scroll'
+import React, { useState, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { FiMenu, FiX } from 'react-icons/fi'
 import gsap from 'gsap'
 import logo from '../assets/thecorefusion.png'
@@ -54,11 +54,11 @@ const Navbar = () => {
   }
 
   const menuItems = [
-    { label: 'Home', to: 'hero' },
-    { label: 'About', to: 'about' },
-    { label: 'Services', to: 'services' },
-    { label: 'Portfolio', to: 'portfolio' },
-    { label: 'Contact', to: 'contact' },
+    { label: 'Home', path: '/' },
+    { label: 'About', path: '/about' },
+    { label: 'Services', path: '/services' },
+    { label: 'Portfolio', path: '/portfolio' },
+    { label: 'Contact', path: '/contact' },
   ]
 
   return (
@@ -78,15 +78,9 @@ const Navbar = () => {
           height: '64px'
         }}>
 
-          {/* ✅ Logo (Clickable) */}
+          {/* Logo (Clickable) */}
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <ScrollLink
-              to="hero"
-              smooth={true}
-              duration={500}
-              offset={-64}
-              style={{ cursor: 'pointer' }}
-            >
+            <Link to="/" style={{ cursor: 'pointer', textDecoration: 'none' }}>
               <img
                 src={logo}
                 alt="TheCoreFusion Logo"
@@ -97,26 +91,23 @@ const Navbar = () => {
                   filter: 'drop-shadow(0 0 6px rgba(34, 211, 238, 0.5))'
                 }}
               />
-            </ScrollLink>
+            </Link>
           </div>
 
           {/* Desktop Menu */}
           <div style={{ display: 'none', gap: '4px' }} className="desktop-menu">
             {menuItems.map((item) => (
-              <ScrollLink
-                key={item.to}
-                to={item.to}
-                spy={true}
-                smooth={true}
-                offset={-64}
-                duration={500}
+              <Link
+                key={item.path}
+                to={item.path}
                 ref={item.label === 'Services' ? servicesRef : null}
                 style={{
                   padding: '8px 16px',
                   color: '#d1d5db',
                   cursor: 'pointer',
                   transition: 'color 0.3s ease',
-                  display: 'inline-block'
+                  display: 'inline-block',
+                  textDecoration: 'none'
                 }}
                 onMouseEnter={(e) => {
                   if (item.label === 'Services') {
@@ -134,23 +125,19 @@ const Navbar = () => {
                 }}
               >
                 {item.label}
-              </ScrollLink>
+              </Link>
             ))}
           </div>
 
           {/* CTA Button */}
           <div style={{ display: 'none' }} className="desktop-button">
-            <ScrollLink
-              to="contact"
-              spy={true}
-              smooth={true}
-              offset={-64}
-              duration={500}
+            <Link
+              to="/contact"
               className="btn-primary"
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: 'pointer', textDecoration: 'none' }}
             >
               Get Started
-            </ScrollLink>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -177,38 +164,31 @@ const Navbar = () => {
           }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', padding: '16px' }}>
               {menuItems.map((item) => (
-                <ScrollLink
-                  key={item.to}
-                  to={item.to}
-                  spy={true}
-                  smooth={true}
-                  offset={-64}
-                  duration={500}
+                <Link
+                  key={item.path}
+                  to={item.path}
                   style={{
                     color: '#d1d5db',
                     cursor: 'pointer',
                     display: 'block',
-                    padding: '8px'
+                    padding: '8px',
+                    textDecoration: 'none'
                   }}
                   onClick={() => setIsOpen(false)}
                   onMouseEnter={(e) => e.target.style.color = '#22d3ee'}
                   onMouseLeave={(e) => e.target.style.color = '#d1d5db'}
                 >
                   {item.label}
-                </ScrollLink>
+                </Link>
               ))}
-              <ScrollLink
-                to="contact"
-                spy={true}
-                smooth={true}
-                offset={-64}
-                duration={500}
+              <Link
+                to="/contact"
                 className="btn-primary"
-                style={{ cursor: 'pointer', textAlign: 'center', display: 'block' }}
+                style={{ cursor: 'pointer', textAlign: 'center', display: 'block', textDecoration: 'none' }}
                 onClick={() => setIsOpen(false)}
               >
                 Get Started
-              </ScrollLink>
+              </Link>
             </div>
           </div>
         )}
@@ -219,7 +199,7 @@ const Navbar = () => {
         @media (min-width: 768px) {
           .desktop-menu { display: flex !important; }
           .desktop-button { display: block !important; }
-          button { display: none !important; }
+          nav button { display: none !important; }
         }
       `}</style>
     </nav>

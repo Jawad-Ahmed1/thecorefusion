@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FiMail, FiPhone, FiMapPin, FiSend } from 'react-icons/fi'
 import { FaLinkedinIn, FaTwitter, FaInstagram, FaFacebookF } from 'react-icons/fa'
+import emailjs from '@emailjs/browser'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +11,14 @@ const Contact = () => {
   })
 
   const [submitted, setSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
+
+  // Initialize EmailJS (get your public key from emailjs.com)
+  useEffect(() => {
+    // Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS public key
+    emailjs.init('GvMoJH8jx7QC7xNA1')
+  }, [])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -17,14 +26,39 @@ const Contact = () => {
       ...prev,
       [name]: value,
     }))
+    setError('')
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('Form submitted:', formData)
-    setSubmitted(true)
-    setFormData({ name: '', email: '', message: '' })
-    setTimeout(() => setSubmitted(false), 5000)
+    setIsLoading(true)
+    setError('')
+
+    try {
+      // Send email using EmailJS
+      const result = await emailjs.send(
+        'service_jz23mak',
+        'template_cc60p9r',
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+          to_email: 'hello@thecorefusion.com',
+        }
+      )
+
+      if (result.status === 200) {
+        setSubmitted(true)
+        setFormData({ name: '', email: '', message: '' })
+        setTimeout(() => setSubmitted(false), 5000)
+        console.log('Email sent successfully!')
+      }
+    } catch (err) {
+      setError('Failed to send message. Please try again.')
+      console.error('Email sending error:', err)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const contactInfo = [
@@ -159,12 +193,43 @@ const Contact = () => {
 
               <button
                 type="submit"
-                className="btn-primary"
-                style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
+                disabled={isLoading}
+                style={{ 
+                  display: 'flex',
+                  width: '100%', 
+                  alignItems: 'center', 
+                  justifyContent: 'center', 
+                  gap: '8px',
+                  padding: '12px 24px',
+                  background: 'linear-gradient(to right, #06b6d4, #2563eb)',
+                  color: 'white',
+                  fontWeight: '600',
+                  borderRadius: '8px',
+                  border: 'none',
+                  cursor: isLoading ? 'not-allowed' : 'pointer',
+                  opacity: isLoading ? 0.6 : 1,
+                  transition: 'all 0.3s ease',
+                  fontSize: '16px'
+                }}
+                onMouseEnter={(e) => !isLoading && (e.target.style.transform = 'scale(1.05)')}
+                onMouseLeave={(e) => (e.target.style.transform = 'scale(1)')}
               >
-                <span>Send Message</span>
+                <span>{isLoading ? 'Sending...' : 'Send Message'}</span>
                 <FiSend />
               </button>
+
+              {error && (
+                <div style={{
+                  backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                  border: '1px solid #ef4444',
+                  color: '#ef4444',
+                  padding: '12px 16px',
+                  borderRadius: '8px',
+                  fontSize: '14px'
+                }}>
+                  ✗ {error}
+                </div>
+              )}
 
               {submitted && (
                 <div style={{

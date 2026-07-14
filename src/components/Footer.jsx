@@ -1,16 +1,16 @@
 import React from 'react'
 import { FiArrowUp } from 'react-icons/fi'
-import { Link as ScrollLink } from 'react-scroll'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
 
   const quickLinks = [
-    { label: 'Home', to: 'hero' },
-    { label: 'About', to: 'about' },
-    { label: 'Services', to: 'services' },
-    { label: 'Portfolio', to: 'portfolio' },
-    { label: 'Contact', to: 'contact' },
+    { label: 'Home', path: '/' },
+    { label: 'About', path: '/about' },
+    { label: 'Services', path: '/services' },
+    { label: 'Portfolio', path: '/portfolio' },
+    { label: 'Contact', path: '/contact' },
   ]
 
   const services = [
@@ -52,24 +52,21 @@ const Footer = () => {
               <h3 style={{ fontWeight: '600', marginBottom: '16px' }}>Quick Links</h3>
               <ul style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 {quickLinks.map((link) => (
-                  <li key={link.to}>
-                    <ScrollLink
-                      to={link.to}
-                      spy={true}
-                      smooth={true}
-                      offset={-64}
-                      duration={500}
+                  <li key={link.path}>
+                    <Link
+                      to={link.path}
                       style={{
                         color: '#9ca3af',
                         cursor: 'pointer',
                         fontSize: '14px',
-                        transition: 'color 0.3s ease'
+                        transition: 'color 0.3s ease',
+                        textDecoration: 'none'
                       }}
                       onMouseEnter={(e) => e.target.style.color = '#22d3ee'}
                       onMouseLeave={(e) => e.target.style.color = '#9ca3af'}
                     >
                       {link.label}
-                    </ScrollLink>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -182,11 +179,8 @@ const Footer = () => {
             </div>
 
             {/* Back to Top */}
-            <ScrollLink
-              to="hero"
-              spy={true}
-              smooth={true}
-              duration={500}
+            <Link
+              to="/"
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -194,14 +188,15 @@ const Footer = () => {
                 color: '#9ca3af',
                 cursor: 'pointer',
                 transition: 'color 0.3s ease',
-                marginLeft: 'auto'
+                marginLeft: 'auto',
+                textDecoration: 'none'
               }}
               onMouseEnter={(e) => e.target.style.color = '#22d3ee'}
               onMouseLeave={(e) => e.target.style.color = '#9ca3af'}
             >
               <span>Back to Top</span>
               <FiArrowUp style={{ width: '16px', height: '16px' }} />
-            </ScrollLink>
+            </Link>
           </div>
         </div>
       </div>
