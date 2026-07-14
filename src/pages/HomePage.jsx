@@ -3,6 +3,8 @@ import Hero from '../components/Hero'
 import ZoomShowcase from '../components/ZoomShowcase'
 import PassionStatement from '../components/PassionStatement'
 import Capabilities from '../components/Capabilities'
+import AchieveSuccess from '../components/AchieveSuccess'
+import ExploreRange from '../components/ExploreRange'
 import WhyChooseUs from '../components/WhyChooseUs'
 import Services from '../components/Services'
 
@@ -11,9 +13,10 @@ const HomePage = () => {
     <div>
       <Hero />
       <ZoomShowcase />
-      <Capabilities />
       <PassionStatement />
-      <div style={{ height: '60px' }}></div>
+      <Capabilities />
+      <AchieveSuccess />
+      <ExploreRange />
       <WhyChooseUs />
       <Services />
     </div>
