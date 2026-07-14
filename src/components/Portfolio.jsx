@@ -1,8 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { FiExternalLink } from 'react-icons/fi'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const Portfolio = () => {
   const [hoveredId, setHoveredId] = useState(null)
+  const sectionRef = useRef(null)
+  const headingRef = useRef(null)
+  const gridRef = useRef(null)
+  const ctaRef = useRef(null)
 
   const portfolioItems = [
     {
@@ -55,30 +63,55 @@ const Portfolio = () => {
     },
   ]
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+
+      gsap.fromTo(headingRef.current,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1, y: 0, duration: 0.8,
+          scrollTrigger: { trigger: headingRef.current, start: 'top 85%', toggleActions: 'play none none none' }
+        }
+      )
+
+      gsap.fromTo(gridRef.current?.children || [],
+        { opacity: 0, y: 60, scale: 0.92 },
+        {
+          opacity: 1, y: 0, scale: 1,
+          duration: 0.65, stagger: 0.12, ease: 'power3.out',
+          scrollTrigger: { trigger: gridRef.current, start: 'top 80%', toggleActions: 'play none none none' }
+        }
+      )
+
+      gsap.fromTo(ctaRef.current,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1, y: 0, duration: 0.7,
+          scrollTrigger: { trigger: ctaRef.current, start: 'top 90%', toggleActions: 'play none none none' }
+        }
+      )
+
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section id="portfolio" className="section" style={{ backgroundColor: '#111827' }}>
+    <section ref={sectionRef} id="portfolio" className="section" style={{ backgroundColor: '#111827' }}>
       <div className="container-custom">
+
         {/* Section Header */}
-        <div style={{ textAlign: 'center', marginBottom: '64px' }}>
-          <h2 style={{
-            fontSize: 'clamp(24px, 6vw, 48px)',
-            fontWeight: 'bold',
-            marginBottom: '16px'
-          }}>
+        <div ref={headingRef} style={{ textAlign: 'center', marginBottom: '64px', opacity: 0 }}>
+          <h2 style={{ fontSize: 'clamp(24px, 6vw, 48px)', fontWeight: 'bold', marginBottom: '16px' }}>
             Our <span className="gradient-text">Portfolio</span>
           </h2>
-          <p style={{
-            color: '#9ca3af',
-            fontSize: '18px',
-            maxWidth: '672px',
-            margin: '0 auto'
-          }}>
+          <p style={{ color: '#9ca3af', fontSize: '18px', maxWidth: '672px', margin: '0 auto' }}>
             Showcasing our latest projects and success stories
           </p>
         </div>
 
         {/* Portfolio Grid */}
-        <div className="grid-3" style={{ marginBottom: '48px' }}>
+        <div ref={gridRef} className="grid-3" style={{ marginBottom: '48px' }}>
           {portfolioItems.map((item) => (
             <div
               key={item.id}
@@ -89,12 +122,23 @@ const Portfolio = () => {
                 overflow: 'hidden',
                 border: '1px solid #374151',
                 cursor: 'pointer',
-                transition: 'all 0.3s ease'
+                transition: 'all 0.3s ease',
+                opacity: 0
               }}
-              onMouseEnter={() => setHoveredId(item.id)}
-              onMouseLeave={() => setHoveredId(null)}
+              onMouseEnter={e => {
+                setHoveredId(item.id)
+                e.currentTarget.style.transform = 'translateY(-6px)'
+                e.currentTarget.style.boxShadow = '0 20px 50px rgba(6,182,212,0.2)'
+                e.currentTarget.style.borderColor = '#06b6d4'
+              }}
+              onMouseLeave={e => {
+                setHoveredId(null)
+                e.currentTarget.style.transform = 'translateY(0)'
+                e.currentTarget.style.boxShadow = 'none'
+                e.currentTarget.style.borderColor = '#374151'
+              }}
             >
-              {/* Image Container */}
+              {/* Image */}
               <div style={{ position: 'relative', height: '224px', overflow: 'hidden', backgroundColor: '#4b5563' }}>
                 <img
                   src={item.image}
@@ -107,28 +151,22 @@ const Portfolio = () => {
                     transition: 'transform 0.5s ease'
                   }}
                 />
-                {/* Overlay */}
                 <div style={{
                   position: 'absolute',
                   inset: '0',
-                  background: 'linear-gradient(to top, #111827, rgba(17, 24, 39, 0.4), transparent)',
+                  background: 'linear-gradient(to top, #111827, rgba(17,24,39,0.4), transparent)',
                   opacity: hoveredId === item.id ? '1' : '0',
                   transition: 'opacity 0.3s ease'
-                }}></div>
+                }} />
               </div>
 
               {/* Content */}
               <div style={{ padding: '24px' }}>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  marginBottom: '12px'
-                }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
                   <span style={{
                     fontSize: '12px',
                     fontWeight: '600',
-                    backgroundColor: 'rgba(6, 182, 212, 0.2)',
+                    backgroundColor: 'rgba(6,182,212,0.2)',
                     color: '#22d3ee',
                     padding: '4px 12px',
                     borderRadius: '9999px'
@@ -160,26 +198,22 @@ const Portfolio = () => {
                   {item.description}
                 </p>
 
-                {/* Tags */}
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                   {item.tags.map((tag, idx) => (
-                    <span
-                      key={idx}
-                      style={{
-                        fontSize: '12px',
-                        color: '#6b7280',
-                        backgroundColor: 'rgba(75, 85, 99, 0.5)',
-                        padding: '4px 8px',
-                        borderRadius: '4px'
-                      }}
-                    >
+                    <span key={idx} style={{
+                      fontSize: '12px',
+                      color: '#6b7280',
+                      backgroundColor: 'rgba(75,85,99,0.5)',
+                      padding: '4px 8px',
+                      borderRadius: '4px'
+                    }}>
                       {tag}
                     </span>
                   ))}
                 </div>
               </div>
 
-              {/* Hover Action */}
+              {/* Hover Overlay */}
               {hoveredId === item.id && (
                 <div style={{
                   position: 'absolute',
@@ -187,13 +221,12 @@ const Portfolio = () => {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                  backgroundColor: 'rgba(0,0,0,0.5)',
                   backdropFilter: 'blur(4px)',
-                  zIndex: 20
+                  zIndex: 20,
+                  animation: 'fadeIn 0.2s ease'
                 }}>
-                  <button className="btn-primary">
-                    View Project
-                  </button>
+                  <button className="btn-primary">View Project</button>
                 </div>
               )}
             </div>
@@ -201,16 +234,18 @@ const Portfolio = () => {
         </div>
 
         {/* CTA */}
-        <div style={{ textAlign: 'center' }}>
-          <p style={{
-            color: '#9ca3af',
-            marginBottom: '24px'
-          }}>Impressed? Let's create something amazing together.</p>
-          <button className="btn-primary">
-            View All Projects
-          </button>
+        <div ref={ctaRef} style={{ textAlign: 'center', opacity: 0 }}>
+          <p style={{ color: '#9ca3af', marginBottom: '24px' }}>
+            Impressed? Let's create something amazing together.
+          </p>
+          <button className="btn-primary">View All Projects</button>
         </div>
+
       </div>
+
+      <style>{`
+        @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+      `}</style>
     </section>
   )
 }

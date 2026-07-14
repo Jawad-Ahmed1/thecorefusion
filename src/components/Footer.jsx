@@ -1,9 +1,29 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { FiArrowUp } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
+  const footerRef = useRef(null)
+  const colsRef = useRef(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(colsRef.current?.children || [],
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1, y: 0,
+          duration: 0.6, stagger: 0.12, ease: 'power3.out',
+          scrollTrigger: { trigger: colsRef.current, start: 'top 90%', toggleActions: 'play none none none' }
+        }
+      )
+    }, footerRef)
+    return () => ctx.revert()
+  }, [])
 
   const quickLinks = [
     { label: 'Home', path: '/' },
@@ -28,11 +48,11 @@ const Footer = () => {
   ]
 
   return (
-    <footer style={{ backgroundColor: '#030712', borderTop: '1px solid #374151' }}>
+    <footer ref={footerRef} style={{ backgroundColor: '#030712', borderTop: '1px solid #374151' }}>
       {/* Main Footer */}
       <div className="section" style={{ paddingTop: '64px', paddingBottom: '64px' }}>
         <div className="container-custom">
-          <div className="grid-4" style={{ marginBottom: '48px' }}>
+          <div ref={colsRef} className="grid-4" style={{ marginBottom: '48px' }}>
             {/* Company Info */}
             <div>
               <h2 className="gradient-text" style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '16px' }}>

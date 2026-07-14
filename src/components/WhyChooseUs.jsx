@@ -1,7 +1,15 @@
-import React from 'react';
-import { FiCheckCircle } from 'react-icons/fi';
+import React, { useEffect, useRef } from 'react'
+import { FiCheckCircle } from 'react-icons/fi'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const WhyChooseUs = () => {
+  const sectionRef = useRef(null)
+  const headingRef = useRef(null)
+  const cardsRef = useRef(null)
+
   const features = [
     {
       title: 'Fast & Efficient',
@@ -19,47 +27,95 @@ const WhyChooseUs = () => {
       title: 'Creative Solutions',
       description: 'We blend creativity with strategy to develop unique solutions tailored to your brand.',
     },
-  ];
+  ]
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+
+      gsap.fromTo(headingRef.current,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1, y: 0, duration: 0.8,
+          scrollTrigger: { trigger: headingRef.current, start: 'top 85%', toggleActions: 'play none none none' }
+        }
+      )
+
+      gsap.fromTo(cardsRef.current?.children || [],
+        { opacity: 0, y: 50, scale: 0.93 },
+        {
+          opacity: 1, y: 0, scale: 1,
+          duration: 0.6, stagger: 0.15, ease: 'power3.out',
+          scrollTrigger: { trigger: cardsRef.current, start: 'top 80%', toggleActions: 'play none none none' }
+        }
+      )
+
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
 
   return (
-    <section id="why-choose-us" className="py-10 bg-gray-900">
+    <section ref={sectionRef} id="why-choose-us" className="py-10 bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div>
+
+        <div ref={headingRef} style={{ opacity: 0 }}>
           <h3 style={{ fontSize: '30px', fontWeight: 'bold', marginBottom: '32px', textAlign: 'center' }}>
-            Why Choose <span style={{
+            Why Choose{' '}
+            <span style={{
               background: 'linear-gradient(to right, #06b6d4, #3b82f6)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'
             }}>TheCoreFusion</span>
           </h3>
-          <div className="grid-4" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '24px' }}>
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                style={{
-                  backgroundColor: 'rgba(31, 41, 55, 0.3)',
-                  border: '1px solid #374151',
-                  borderRadius: '8px',
-                  padding: '24px',
-                  transition: 'border-color 0.3s ease',
-                  cursor: 'pointer'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.borderColor = '#06b6d4'}
-                onMouseLeave={(e) => e.currentTarget.style.borderColor = '#374151'}
-              >
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', marginBottom: '16px' }}>
-                  <FiCheckCircle style={{ color: '#06b6d4', width: '24px', height: '24px', marginTop: '4px', flexShrink: 0 }} />
-                  <h4 style={{ fontWeight: '600', fontSize: '18px' }}>{feature.title}</h4>
-                </div>
-                <p style={{ color: '#9ca3af', fontSize: '14px' }}>{feature.description}</p>
-              </div>
-            ))}
-          </div>
         </div>
+
+        <div
+          ref={cardsRef}
+          className="grid-4"
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '24px' }}
+        >
+          {features.map((feature, index) => (
+            <div
+              key={index}
+              style={{
+                backgroundColor: 'rgba(31, 41, 55, 0.3)',
+                border: '1px solid #374151',
+                borderRadius: '8px',
+                padding: '24px',
+                transition: 'border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease',
+                cursor: 'pointer',
+                opacity: 0
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.borderColor = '#06b6d4'
+                e.currentTarget.style.transform = 'translateY(-6px)'
+                e.currentTarget.style.boxShadow = '0 16px 40px rgba(6,182,212,0.15)'
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.borderColor = '#374151'
+                e.currentTarget.style.transform = 'translateY(0)'
+                e.currentTarget.style.boxShadow = 'none'
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', marginBottom: '16px' }}>
+                <FiCheckCircle style={{
+                  color: '#06b6d4',
+                  width: '24px',
+                  height: '24px',
+                  marginTop: '4px',
+                  flexShrink: 0
+                }} />
+                <h4 style={{ fontWeight: '600', fontSize: '18px' }}>{feature.title}</h4>
+              </div>
+              <p style={{ color: '#9ca3af', fontSize: '14px' }}>{feature.description}</p>
+            </div>
+          ))}
+        </div>
+
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default WhyChooseUs;
+export default WhyChooseUs

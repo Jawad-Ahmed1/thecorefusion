@@ -6,80 +6,18 @@ import {
   FiSearch,
   FiGlobe,
   FiImage,
+  FiPackage,
 } from 'react-icons/fi'
 import gsap from 'gsap'
 
 const Services = () => {
-  const scrollContainerRef = useRef(null)
-  const autoScrollRef = useRef(null)
+  const trackRef = useRef(null)
   const isUserInteractingRef = useRef(false)
+  const posRef = useRef(0)
+  const rafRef = useRef(null)
+  const resumeTimerRef = useRef(null)
   const iconRefsRef = useRef({})
   const lineRefsRef = useRef({})
-
-  const handleMouseMove = (e, serviceId) => {
-    const card = e.currentTarget
-    const icon = iconRefsRef.current[serviceId]
-    
-    if (!icon) return
-
-    // Get card boundaries
-    const rect = card.getBoundingClientRect()
-    const cardCenterX = rect.width / 2
-    const cardCenterY = rect.height / 2
-
-    // Calculate mouse position relative to card center
-    const mouseX = e.clientX - rect.left - cardCenterX
-    const mouseY = e.clientY - rect.top - cardCenterY
-
-    // Calculate movement (limit to 15px radius for smooth effect)
-    const moveX = (mouseX / cardCenterX) * 15
-    const moveY = (mouseY / cardCenterY) * 15
-
-    // Animate icon to follow cursor
-    gsap.to(icon, {
-      x: moveX,
-      y: moveY,
-      duration: 0.5,
-      ease: 'power2.out',
-      overwrite: 'auto'
-    })
-  }
-
-  const handleMouseLeave = (serviceId) => {
-    const icon = iconRefsRef.current[serviceId]
-    if (!icon) return
-
-    // Animate back to original position
-    gsap.to(icon, {
-      x: 0,
-      y: 0,
-      duration: 0.4,
-      ease: 'elastic.out',
-      overwrite: 'auto'
-    })
-
-    // Animate line out
-    const line = lineRefsRef.current[serviceId]
-    if (line) {
-      gsap.to(line, {
-        scaleX: 0,
-        duration: 0.3,
-        ease: 'power2.in'
-      })
-    }
-  }
-
-  const handleMouseEnter = (serviceId) => {
-    // Animate line in
-    const line = lineRefsRef.current[serviceId]
-    if (line) {
-      gsap.to(line, {
-        scaleX: 1,
-        duration: 0.4,
-        ease: 'power2.out'
-      })
-    }
-  }
 
   const services = [
     {
@@ -106,7 +44,7 @@ const Services = () => {
     {
       id: 4,
       title: 'SEO Optimization',
-      description: '(Search Engine Optimization) Climb the rankings with our proven SEO strategies. Organic growth that lasts.',
+      description: 'Climb the rankings with our proven SEO strategies. Organic growth that truly lasts.',
       icon: FiSearch,
       features: ['Keyword Research', 'On-Page SEO', 'Link Building', 'Technical SEO'],
     },
@@ -124,63 +62,101 @@ const Services = () => {
       icon: FiImage,
       features: ['Logo Design', 'Brand Identity', 'UI/UX Design', 'Marketing Materials'],
     },
+    {
+      id: 7,
+      title: 'Packaging Design',
+      description: 'Eye-catching packaging that sells. We design product packaging that stands out on shelves and online.',
+      icon: FiPackage,
+      features: ['Product Packaging', 'Label Design', 'Box & Sleeve Design', 'Print-Ready Files'],
+    },
   ]
 
+  // GSAP card hover effects
+  const handleMouseMove = (e, serviceId) => {
+    const icon = iconRefsRef.current[serviceId]
+    if (!icon) return
+    const rect = e.currentTarget.getBoundingClientRect()
+    const moveX = ((e.clientX - rect.left - rect.width / 2) / (rect.width / 2)) * 15
+    const moveY = ((e.clientY - rect.top - rect.height / 2) / (rect.height / 2)) * 15
+    gsap.to(icon, { x: moveX, y: moveY, duration: 0.5, ease: 'power2.out', overwrite: 'auto' })
+  }
+
+  const handleMouseEnter = (e, serviceId) => {
+    const line = lineRefsRef.current[serviceId]
+    if (line) gsap.to(line, { scaleX: 1, duration: 0.4, ease: 'power2.out' })
+    e.currentTarget.style.borderColor = '#06b6d4'
+    e.currentTarget.style.boxShadow = '0 0 20px rgba(6,182,212,0.2)'
+  }
+
+  const handleMouseLeave = (e, serviceId) => {
+    const icon = iconRefsRef.current[serviceId]
+    if (icon) gsap.to(icon, { x: 0, y: 0, duration: 0.4, ease: 'elastic.out', overwrite: 'auto' })
+    const line = lineRefsRef.current[serviceId]
+    if (line) gsap.to(line, { scaleX: 0, duration: 0.3, ease: 'power2.in' })
+    e.currentTarget.style.borderColor = '#374151'
+    e.currentTarget.style.boxShadow = 'none'
+  }
+
   useEffect(() => {
-    const container = scrollContainerRef.current
-    if (!container) return
+    const track = trackRef.current
+    if (!track) return
 
-    let scrollAmount = container.scrollLeft
-    let resumeTimer = null
-    const scrollSpeed = 1
+    const CARD_WIDTH = 280
+    const GAP = 24
+    const ITEM_STEP = CARD_WIDTH + GAP
+    const ORIGINAL_COUNT = services.length
+    // We duplicate cards: original + clone.
+    // Half-width = one full set of cards
+    const HALF_WIDTH = ORIGINAL_COUNT * ITEM_STEP
+    const SPEED = 0.6 // px per frame
 
-    const startAutoScroll = () => {
-      autoScrollRef.current = setInterval(() => {
-        if (!isUserInteractingRef.current) {
-          const maxScroll = container.scrollWidth - container.clientWidth
-          scrollAmount = container.scrollLeft + scrollSpeed
+    posRef.current = 0
+    track.style.transform = `translateX(0px)`
 
-          if (scrollAmount >= maxScroll) {
-            scrollAmount = 0
-          }
+    const tick = () => {
+      if (!isUserInteractingRef.current) {
+        posRef.current += SPEED
 
-          container.scrollLeft = scrollAmount
+        // When we've scrolled exactly one full set, jump back silently
+        if (posRef.current >= HALF_WIDTH) {
+          posRef.current -= HALF_WIDTH
         }
-      }, 30)
+
+        track.style.transform = `translateX(-${posRef.current}px)`
+      }
+      rafRef.current = requestAnimationFrame(tick)
     }
 
-    const handleUserInteraction = () => {
+    rafRef.current = requestAnimationFrame(tick)
+
+    const pauseScroll = () => {
       isUserInteractingRef.current = true
-
-      if (autoScrollRef.current) {
-        clearInterval(autoScrollRef.current)
-      }
-
-      if (resumeTimer) {
-        clearTimeout(resumeTimer)
-      }
-
-      resumeTimer = setTimeout(() => {
+      if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
+      resumeTimerRef.current = setTimeout(() => {
         isUserInteractingRef.current = false
-        startAutoScroll()
       }, 2000)
     }
 
-    container.addEventListener('mousedown', handleUserInteraction)
-    container.addEventListener('touchstart', handleUserInteraction)
-    container.addEventListener('wheel', handleUserInteraction)
-
-    startAutoScroll()
+    const wrapper = track.parentElement
+    wrapper.addEventListener('mouseenter', pauseScroll)
+    wrapper.addEventListener('mouseleave', () => {
+      if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
+      resumeTimerRef.current = setTimeout(() => {
+        isUserInteractingRef.current = false
+      }, 500)
+    })
+    wrapper.addEventListener('touchstart', pauseScroll, { passive: true })
 
     return () => {
-      if (autoScrollRef.current) clearInterval(autoScrollRef.current)
-      if (resumeTimer) clearTimeout(resumeTimer)
-
-      container.removeEventListener('mousedown', handleUserInteraction)
-      container.removeEventListener('touchstart', handleUserInteraction)
-      container.removeEventListener('wheel', handleUserInteraction)
+      cancelAnimationFrame(rafRef.current)
+      if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
+      wrapper.removeEventListener('mouseenter', pauseScroll)
+      wrapper.removeEventListener('touchstart', pauseScroll)
     }
   }, [])
+
+  // Render cards twice for seamless loop
+  const allCards = [...services, ...services]
 
   return (
     <section id="services" className="section" style={{ backgroundColor: '#111827' }}>
@@ -188,122 +164,92 @@ const Services = () => {
 
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '64px' }}>
-          <h2 style={{
-            fontSize: 'clamp(24px, 6vw, 48px)',
-            fontWeight: 'bold',
-            marginBottom: '16px'
-          }}>
+          <h2 style={{ fontSize: 'clamp(24px, 6vw, 48px)', fontWeight: 'bold', marginBottom: '16px' }}>
             Our <span className="gradient-text">Services</span>
           </h2>
-          <p style={{
-            color: '#9ca3af',
-            fontSize: '18px',
-            maxWidth: '672px',
-            margin: '0 auto'
-          }}>
+          <p style={{ color: '#9ca3af', fontSize: '18px', maxWidth: '672px', margin: '0 auto' }}>
             Comprehensive digital solutions tailored to your business goals
           </p>
         </div>
 
-        {/* Slider */}
-        <div
-          ref={scrollContainerRef}
-          style={{
-            display: 'flex',
-            gap: '24px',
-            overflowX: 'auto',
-            paddingBottom: '12px',
-            scrollBehavior: 'smooth'
-          }}
-        >
-          {services.map((service) => {
-            const IconComponent = service.icon
-            return (
-              <div
-                key={service.id}
-                style={{
-                  background: 'linear-gradient(to bottom right, rgba(31, 41, 55, 0.5), rgba(17, 24, 39, 0.5))',
-                  border: '1px solid #374151',
-                  borderRadius: '8px',
-                  padding: '24px',
-                  minWidth: '280px',
-                  flex: '0 0 280px',
-                  cursor: 'pointer',
-                  transition: '0.3s',
-                  position: 'relative',
-                  overflow: 'hidden'
-                }}
-                onMouseMove={(e) => handleMouseMove(e, service.id)}
-                onMouseLeave={(e) => {
-                  handleMouseLeave(service.id)
-                  e.currentTarget.style.borderColor = '#374151'
-                  e.currentTarget.style.boxShadow = 'none'
-                }}
-                onMouseEnter={(e) => {
-                  handleMouseEnter(service.id)
-                  e.currentTarget.style.borderColor = '#06b6d4'
-                  e.currentTarget.style.boxShadow = '0 0 20px rgba(6,182,212,0.2)'
-                }}
-              >
-                {/* Animated Top Line */}
+        {/* Slider Viewport — hides overflow */}
+        <div style={{ overflow: 'hidden', position: 'relative' }}>
+
+          {/* Track — moves via transform, no scrollbar */}
+          <div
+            ref={trackRef}
+            style={{
+              display: 'flex',
+              gap: '24px',
+              width: 'max-content',
+              willChange: 'transform'
+            }}
+          >
+            {allCards.map((service, idx) => {
+              const IconComponent = service.icon
+              // unique key per rendered instance
+              const uid = `${service.id}-${idx}`
+              return (
                 <div
-                  ref={(el) => {
-                    if (el) lineRefsRef.current[service.id] = el
-                  }}
+                  key={uid}
                   style={{
-                    position: 'absolute',
-                    top: '0',
-                    left: '0',
-                    height: '3px',
-                    width: '100%',
-                    background: 'linear-gradient(90deg, #06b6d4, #a855f7)',
-                    transformOrigin: 'left center',
-                    transform: 'scaleX(0)',
-                    zIndex: 5
+                    background: 'linear-gradient(to bottom right, rgba(31,41,55,0.5), rgba(17,24,39,0.5))',
+                    border: '1px solid #374151',
+                    borderRadius: '8px',
+                    padding: '24px',
+                    width: '280px',
+                    flex: '0 0 280px',
+                    cursor: 'pointer',
+                    transition: 'border-color 0.3s, box-shadow 0.3s',
+                    position: 'relative',
+                    overflow: 'hidden'
                   }}
-                ></div>
-                <div
-                  ref={(el) => {
-                    if (el) iconRefsRef.current[service.id] = el
-                  }}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '40px',
-                    height: '40px'
-                  }}
+                  onMouseMove={e => handleMouseMove(e, uid)}
+                  onMouseEnter={e => handleMouseEnter(e, uid)}
+                  onMouseLeave={e => handleMouseLeave(e, uid)}
                 >
-                  <IconComponent size={40} color="#06b6d4" />
-                </div>
+                  {/* Animated top line */}
+                  <div
+                    ref={el => { if (el) lineRefsRef.current[uid] = el }}
+                    style={{
+                      position: 'absolute', top: 0, left: 0,
+                      height: '3px', width: '100%',
+                      background: 'linear-gradient(90deg, #06b6d4, #a855f7)',
+                      transformOrigin: 'left center',
+                      transform: 'scaleX(0)',
+                      zIndex: 5
+                    }}
+                  />
 
-                <h3 style={{ fontSize: '18px', fontWeight: 'bold', margin: '12px 0' }}>
-                  {service.title}
-                </h3>
-
-                <p style={{ color: '#9ca3af', fontSize: '14px', marginBottom: '16px' }}>
-                  {service.description}
-                </p>
-
-                {service.features.map((f, i) => (
-                  <div key={i} style={{ fontSize: '12px', color: '#6b7280' }}>
-                    • {f}
+                  {/* Icon */}
+                  <div
+                    ref={el => { if (el) iconRefsRef.current[uid] = el }}
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px' }}
+                  >
+                    <IconComponent size={40} color="#06b6d4" />
                   </div>
-                ))}
-              </div>
-            )
-          })}
+
+                  <h3 style={{ fontSize: '18px', fontWeight: 'bold', margin: '12px 0' }}>
+                    {service.title}
+                  </h3>
+
+                  <p style={{ color: '#9ca3af', fontSize: '14px', marginBottom: '16px' }}>
+                    {service.description}
+                  </p>
+
+                  {service.features.map((f, i) => (
+                    <div key={i} style={{ fontSize: '12px', color: '#6b7280' }}>• {f}</div>
+                  ))}
+                </div>
+              )
+            })}
+          </div>
         </div>
 
         {/* CTA */}
-        <div style={{
-          marginTop: '48px',
-          textAlign: 'center'
-        }}>
-          <button className="btn-primary">
-            Schedule a Consultation
-          </button>
-        </div>
+        {/* <div style={{ marginTop: '48px', textAlign: 'center' }}>
+          <button className="btn-primary">Schedule a Consultation</button>
+        </div> */}
 
       </div>
     </section>
