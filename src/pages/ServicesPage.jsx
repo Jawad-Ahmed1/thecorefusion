@@ -255,29 +255,7 @@ const ServiceSection = ({ service, index }) => {
             ))}
           </ul>
 
-          {/* CTA */}
-          <Link
-            to="/contact"
-            style={{
-              display: 'inline-flex', alignItems: 'center', gap: '10px',
-              padding: '13px 28px',
-              background: `linear-gradient(to right, ${service.color}, ${service.color}bb)`,
-              color: '#fff', fontWeight: '700', fontSize: '14px',
-              borderRadius: '8px', textDecoration: 'none',
-              transition: 'all 0.3s ease',
-              boxShadow: `0 4px 20px ${service.color}33`,
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.transform = 'translateY(-2px)'
-              e.currentTarget.style.boxShadow = `0 10px 30px ${service.color}55`
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.transform = 'translateY(0)'
-              e.currentTarget.style.boxShadow = `0 4px 20px ${service.color}33`
-            }}
-          >
-            Get Started <FiArrowRight size={16} />
-          </Link>
+          {/* CTA removed */}
         </div>
 
         {/* Stat card side */}
