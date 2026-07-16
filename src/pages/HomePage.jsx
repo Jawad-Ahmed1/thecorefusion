@@ -5,6 +5,7 @@ import PassionStatement from '../components/PassionStatement'
 import Capabilities from '../components/Capabilities'
 import AchieveSuccess from '../components/AchieveSuccess'
 import ExploreRange from '../components/ExploreRange'
+import WhatWeDo from '../components/WhatWeDo'
 import WhyChooseUs from '../components/WhyChooseUs'
 import Services from '../components/Services'
 
@@ -17,6 +18,7 @@ const HomePage = () => {
       <Capabilities />
       <AchieveSuccess />
       <ExploreRange />
+      <WhatWeDo />
       <WhyChooseUs />
       <Services />
     </div>
