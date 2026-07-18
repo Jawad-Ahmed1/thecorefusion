@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   FiShare2,
   FiShoppingCart,
@@ -7,10 +8,12 @@ import {
   FiGlobe,
   FiImage,
   FiPackage,
+  FiArrowRight,
 } from 'react-icons/fi'
 import gsap from 'gsap'
 
 const Services = () => {
+  const navigate = useNavigate()
   const trackRef = useRef(null)
   const isUserInteractingRef = useRef(false)
   const posRef = useRef(0)
@@ -18,6 +21,8 @@ const Services = () => {
   const resumeTimerRef = useRef(null)
   const iconRefsRef = useRef({})
   const lineRefsRef = useRef({})
+  // Track pointer-down position to distinguish click vs drag
+  const pointerDownX = useRef(0)
 
   const services = [
     {
@@ -159,7 +164,7 @@ const Services = () => {
   const allCards = [...services, ...services]
 
   return (
-    <section id="services" className="section" style={{ backgroundColor: '#111827' }}>
+    <section id="services" style={{ backgroundColor: '#111827', padding: '80px 0' }}>
       <div className="container-custom">
 
         {/* Header */}
@@ -187,7 +192,6 @@ const Services = () => {
           >
             {allCards.map((service, idx) => {
               const IconComponent = service.icon
-              // unique key per rendered instance
               const uid = `${service.id}-${idx}`
               return (
                 <div
@@ -202,7 +206,15 @@ const Services = () => {
                     cursor: 'pointer',
                     transition: 'border-color 0.3s, box-shadow 0.3s',
                     position: 'relative',
-                    overflow: 'hidden'
+                    overflow: 'hidden',
+                    userSelect: 'none',
+                  }}
+                  onPointerDown={e => { pointerDownX.current = e.clientX }}
+                  onPointerUp={e => {
+                    // Only navigate if pointer moved less than 6px (a real click, not a drag)
+                    if (Math.abs(e.clientX - pointerDownX.current) < 6) {
+                      navigate('/services')
+                    }
                   }}
                   onMouseMove={e => handleMouseMove(e, uid)}
                   onMouseEnter={e => handleMouseEnter(e, uid)}
@@ -240,6 +252,16 @@ const Services = () => {
                   {service.features.map((f, i) => (
                     <div key={i} style={{ fontSize: '12px', color: '#6b7280' }}>• {f}</div>
                   ))}
+
+                  {/* Click hint */}
+                  <div style={{
+                    display: 'flex', alignItems: 'center', gap: '6px',
+                    marginTop: '18px', color: '#06b6d4',
+                    fontSize: '12px', fontWeight: '600',
+                    opacity: 0.7,
+                  }}>
+                    Learn more <FiArrowRight size={12} />
+                  </div>
                 </div>
               )
             })}

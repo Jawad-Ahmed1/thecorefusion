@@ -8,14 +8,14 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 const contactDetails = [
-  { icon: FiMail,   color: '#06b6d4', title: 'Email Us',      value: 'hello@thecorefusion.com', link: 'mailto:hello@thecorefusion.com', sub: 'We reply within 24 hours' },
+  { icon: FiMail,   color: '#06b6d4', title: 'Email Us',      value: 'thecorefusion.tech@gmail.com', link: 'mailto:hello@thecorefusion.com', sub: 'We reply within 24 hours' },
   { icon: FiPhone,  color: '#a855f7', title: 'Call Us',       value: '+1 (555) 123-4567',         link: 'tel:+15551234567',              sub: 'Mon–Fri, 9am–6pm PST' },
   { icon: FiMapPin, color: '#10b981', title: 'Our Location',  value: 'San Francisco, CA, USA',    link: '#',                             sub: 'Remote-first agency' },
   { icon: FiClock,  color: '#f97316', title: 'Office Hours',  value: 'Mon–Fri: 9am – 6pm',       link: '#',                             sub: 'Sat: 10am – 4pm · Sun: Closed' },
 ]
 
 const socialLinks = [
-  { icon: FaLinkedinIn, url: '#', label: 'LinkedIn',  color: '#0077b5' },
+  { icon: FaLinkedinIn, url: 'https://www.linkedin.com/in/the-core-fusion-66a916422/', label: 'LinkedIn',  color: '#0077b5' },
   // { icon: FaTwitter,    url: '#', label: 'Twitter',   color: '#1da1f2' },
   { icon: FaInstagram,  url: 'https://www.instagram.com/thecorefusion?igsh=aGY3MG5kZXg4aml4', label: 'Instagram', color: '#e1306c' },
   { icon: FaFacebookF,  url: 'https://www.facebook.com/share/1BPnFdVt3e/', label: 'Facebook',  color: '#1877f2' },

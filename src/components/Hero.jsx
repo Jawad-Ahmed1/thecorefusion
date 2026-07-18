@@ -140,7 +140,6 @@ const Hero = () => {
               fontSize: 'clamp(36px, 6vw, 80px)',
               fontWeight: '800',
               marginBottom: '48px',
-              paddingLeft: '40px',
               paddingTop: '120px',
               lineHeight: '1.1',
               letterSpacing: '-2px',

@@ -41,13 +41,6 @@ const timeline = [
   { year: '2025', title: 'Next Chapter',        desc: 'Launching new service packages, partnerships, and a redesigned client experience platform.' },
 ]
 
-const team = [
-  { name: 'Jawad Ahmed',    role: 'Founder & CEO',           img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&q=90', color: '#06b6d4' },
-  { name: 'Arshad',         role: 'Head of Design',          img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop&q=90', color: '#a855f7' },
-  { name: 'Abdullah Chakka',role: 'Head of SEO',             img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&q=90', color: '#3b82f6' },
-  { name: 'Fatima Malik',   role: 'Marketing Lead',          img: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&q=90', color: '#10b981' },
-]
-
 // ── reusable animated section wrapper ───────────────────
 const FadeUp = ({ children, delay = 0, style = {} }) => {
   const ref = useRef(null)
@@ -365,61 +358,7 @@ const Timeline = () => {
   )
 }
 
-// ── 7. Team ──────────────────────────────────────────────
-const TeamSection = () => {
-  const gridRef = useRef(null)
-  useEffect(() => {
-    gsap.fromTo(gridRef.current?.children || [],
-      { opacity: 0, y: 50, scale: 0.94 },
-      { opacity: 1, y: 0, scale: 1, duration: 0.7, stagger: 0.12, ease: 'power3.out',
-        scrollTrigger: { trigger: gridRef.current, start: 'top 82%', toggleActions: 'play none none none' } })
-  }, [])
-  return (
-    <div style={{ backgroundColor: '#0a0d16', padding: '100px 0', borderBottom: '1px solid #1a2234' }}>
-      <div className="container-custom" style={{ padding: '0 48px' }}>
-        <FadeUp style={{ textAlign: 'center', marginBottom: '64px' }}>
-          <p style={{ fontSize: '11px', fontWeight: '700', letterSpacing: '3px', color: '#06b6d4',
-            textTransform: 'uppercase', marginBottom: '14px' }}>THE PEOPLE</p>
-          <h2 style={{ fontSize: 'clamp(26px, 4.5vw, 50px)', fontWeight: '800', lineHeight: '1.2' }}>
-            Meet The <span className="gradient-text">Team</span>
-          </h2>
-          <p style={{ color: '#9ca3af', fontSize: '16px', maxWidth: '480px', margin: '16px auto 0', lineHeight: '1.75' }}>
-            Passionate professionals who live and breathe digital — dedicated to your growth.
-          </p>
-        </FadeUp>
-        <div ref={gridRef} style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '24px' }} className="team-grid">
-          {team.map((member, i) => (
-            <div key={i} style={{ opacity: 0, borderRadius: '16px', overflow: 'hidden',
-              border: '1px solid #1a2234', backgroundColor: 'rgba(17,24,39,0.6)',
-              transition: 'border-color 0.3s, transform 0.3s, box-shadow 0.3s' }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = member.color; e.currentTarget.style.transform = 'translateY(-8px)'; e.currentTarget.style.boxShadow = `0 20px 50px ${member.color}20` }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = '#1a2234'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none' }}>
-              <div style={{ height: '220px', overflow: 'hidden', position: 'relative' }}>
-                <img src={member.img} alt={member.name}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block',
-                    transition: 'transform 0.5s ease' }}
-                  onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.06)'}
-                  onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'} />
-                <div style={{ position: 'absolute', inset: 0,
-                  background: `linear-gradient(180deg, transparent 50%, rgba(10,13,22,0.8) 100%)` }} />
-              </div>
-              <div style={{ padding: '20px 20px 24px' }}>
-                <h4 style={{ fontSize: '17px', fontWeight: '700', color: '#fff', marginBottom: '4px' }}>{member.name}</h4>
-                <p style={{ fontSize: '13px', color: member.color, fontWeight: '600' }}>{member.role}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-      <style>{`
-        @media(max-width:900px){.team-grid{grid-template-columns:repeat(2,1fr)!important}}
-        @media(max-width:480px){.team-grid{grid-template-columns:1fr!important}}
-      `}</style>
-    </div>
-  )
-}
-
-// ── 8. Bottom CTA ────────────────────────────────────────
+// ── 7. Bottom CTA ────────────────────────────────────────
 const AboutCTA = () => (
   <div style={{ backgroundColor: '#07090f', padding: '110px 24px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
     <div style={{ position: 'absolute', inset: 0,
@@ -463,7 +402,6 @@ const AboutPage = () => (
     <MissionVision />
     <CoreValues />
     <Timeline />
-    <TeamSection />
     <AboutCTA />
   </div>
 )

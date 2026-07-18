@@ -78,13 +78,14 @@ const categories = [
 const WhatWeDo = () => {
   const sectionRef = useRef(null)
   const headerRef = useRef(null)
+  const headerInnerRef = useRef(null)
   const colRefs = useRef([])
 
   useEffect(() => {
     const ctx = gsap.context(() => {
 
-      // Header fade in
-      gsap.fromTo(headerRef.current?.children || [],
+      // Header fade in — target the inner container's children
+      gsap.fromTo(headerInnerRef.current?.children || [],
         { opacity: 0, y: 30 },
         {
           opacity: 1, y: 0, duration: 0.8, stagger: 0.14, ease: 'power3.out',
@@ -148,15 +149,15 @@ const WhatWeDo = () => {
         ref={headerRef}
         style={{
           textAlign: 'center',
-          padding: '100px 16px 72px',
+          padding: '72px 16px 56px',
           borderBottom: '1px solid #1a2234',
         }}
       >
-        <div className="container-custom">
+        <div ref={headerInnerRef} className="container-custom">
         <p style={{
           fontSize: '11px', fontWeight: '700', letterSpacing: '3.5px',
           color: '#06b6d4', textTransform: 'uppercase',
-          marginBottom: '16px', opacity: 0,
+          marginBottom: '16px',
         }}>
           WHAT WE DO
         </p>
@@ -164,7 +165,7 @@ const WhatWeDo = () => {
         <h2 style={{
           fontSize: 'clamp(28px, 5vw, 54px)',
           fontWeight: '800', lineHeight: '1.15',
-          marginBottom: '20px', opacity: 0,
+          marginBottom: '20px',
         }}>
           Unleashing{' '}
           <span className="gradient-text">Digital Brilliance</span>
@@ -173,7 +174,7 @@ const WhatWeDo = () => {
         <p style={{
           color: '#9ca3af', fontSize: '17px',
           maxWidth: '580px', margin: '0 auto',
-          lineHeight: '1.75', opacity: 0,
+          lineHeight: '1.75',
         }}>
           Empowering your success with a comprehensive suite of digital solutions —
           from captivating brand identities to result-oriented marketing strategies.
@@ -183,7 +184,7 @@ const WhatWeDo = () => {
       </div>
 
       {/* 4-Column Grid — capped at 1280px */}
-      <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+      <div className="container-custom">
         <div
           style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}
           className="whatwedo-grid"

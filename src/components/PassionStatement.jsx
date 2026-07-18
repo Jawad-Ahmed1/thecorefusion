@@ -138,9 +138,11 @@ const PassionStatement = () => {
         alignItems: 'stretch',
         width: '100%',
         maxWidth: '1280px',
-        margin: '0 auto'
+        margin: '0 auto',
+        paddingLeft: '64px',
+        paddingRight: '64px'
       }}
-        className="passion-layout"
+        className="passion-layout passion-container"
       >
 
         {/* LEFT — Image Card */}
@@ -332,6 +334,13 @@ const PassionStatement = () => {
           .passion-layout    { flex-direction: column !important; }
           .passion-image-col { width: 100% !important; height: 260px !important; }
           .passion-text-col  { padding: 48px 24px !important; }
+          .passion-container { padding-left: 0 !important; padding-right: 0 !important; }
+        }
+        @media (max-width: 1024px) {
+          .passion-container { padding-left: 40px !important; padding-right: 40px !important; }
+        }
+        @media (max-width: 640px) {
+          .passion-container { padding-left: 20px !important; padding-right: 20px !important; }
         }
       `}</style>
     </section>
