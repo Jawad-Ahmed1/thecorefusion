@@ -1,5 +1,5 @@
 import React from 'react'
-import Hero from '../components/Hero'
+import Hero2 from '../components/Hero2'
 import ZoomShowcase from '../components/ZoomShowcase'
 import PassionStatement from '../components/PassionStatement'
 import Capabilities from '../components/Capabilities'
@@ -12,7 +12,7 @@ import Services from '../components/Services'
 const HomePage = () => {
   return (
     <div>
-      <Hero />
+      <Hero2 />
       {/* <ZoomShowcase /> */}
       <PassionStatement />
       <Capabilities />

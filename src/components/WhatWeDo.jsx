@@ -152,6 +152,7 @@ const WhatWeDo = () => {
           borderBottom: '1px solid #1a2234',
         }}
       >
+        <div className="container-custom">
         <p style={{
           fontSize: '11px', fontWeight: '700', letterSpacing: '3.5px',
           color: '#06b6d4', textTransform: 'uppercase',
@@ -179,107 +180,64 @@ const WhatWeDo = () => {
         </p>
       </div>
 
-      {/* 4-Column Grid */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-        }}
-        className="whatwedo-grid"
-      >
-        {categories.map((cat, i) => (
-          <div
-            key={i}
-            ref={el => colRefs.current[i] = el}
-            style={{
-              borderRight: i < categories.length - 1 ? '1px solid #1a2234' : 'none',
-              borderTop: '1px solid #1a2234',
-              padding: '44px 36px 60px',
-              opacity: 0,
-              transition: 'background-color 0.3s ease',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.02)'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.backgroundColor = 'transparent'
-            }}
-          >
-            {/* Small colored label */}
-            <span style={{
-              fontSize: '10px', fontWeight: '800',
-              letterSpacing: '2.5px', color: cat.color,
-              textTransform: 'uppercase',
-              display: 'block', marginBottom: '18px',
-            }}>
-              {cat.label}
-            </span>
+      </div>
 
-            {/* Title */}
-            <h3 style={{
-              fontSize: '26px', fontWeight: '800',
-              color: '#ffffff', marginBottom: '16px',
-              lineHeight: '1.2',
-            }}>
-              {cat.title}
-            </h3>
+      {/* 4-Column Grid — capped at 1280px */}
+      <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+        <div
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}
+          className="whatwedo-grid"
+        >
+          {categories.map((cat, i) => (
+            <div
+              key={i}
+              ref={el => colRefs.current[i] = el}
+              style={{
+                borderRight: i < categories.length - 1 ? '1px solid #1a2234' : 'none',
+                borderTop: '1px solid #1a2234',
+                padding: '44px 36px 60px',
+                opacity: 0,
+                transition: 'background-color 0.3s ease',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.02)' }}
+              onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent' }}
+            >
+              <span style={{
+                fontSize: '10px', fontWeight: '800', letterSpacing: '2.5px',
+                color: cat.color, textTransform: 'uppercase',
+                display: 'block', marginBottom: '18px',
+              }}>
+                {cat.label}
+              </span>
 
-            {/* Description */}
-            <p style={{
-              color: '#6b7280', fontSize: '14px',
-              lineHeight: '1.75', marginBottom: '36px',
-            }}>
-              {cat.description}
-            </p>
+              <h3 style={{ fontSize: '26px', fontWeight: '800', color: '#ffffff', marginBottom: '16px', lineHeight: '1.2' }}>
+                {cat.title}
+              </h3>
 
-            {/* Divider */}
-            <div style={{
-              height: '1px',
-              marginBottom: '28px',
-              background: `linear-gradient(to right, ${cat.color}44, transparent)`,
-            }} />
+              <p style={{ color: '#6b7280', fontSize: '14px', lineHeight: '1.75', marginBottom: '36px' }}>
+                {cat.description}
+              </p>
 
-            {/* Service list */}
-            <ul style={{
-              listStyle: 'none', padding: 0, margin: 0,
-              display: 'flex', flexDirection: 'column', gap: '12px',
-            }}>
-              {cat.items.map((item, j) => (
-                <li
-                  key={j}
-                  className="service-item"
-                  style={{
+              <div style={{ height: '1px', marginBottom: '28px', background: `linear-gradient(to right, ${cat.color}44, transparent)` }} />
+
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {cat.items.map((item, j) => (
+                  <li key={j} className="service-item" style={{
                     display: 'flex', alignItems: 'center', gap: '12px',
-                    fontSize: '13.5px', color: '#9ca3af',
-                    opacity: 0,
-                    cursor: 'default',
-                    transition: 'color 0.2s ease',
+                    fontSize: '13.5px', color: '#9ca3af', opacity: 0,
+                    cursor: 'default', transition: 'color 0.2s ease',
                   }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.color = '#f3f4f6'
-                    e.currentTarget.querySelector('span').style.color = cat.color
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.color = '#9ca3af'
-                    e.currentTarget.querySelector('span').style.color = '#374151'
-                  }}
-                >
-                  <span style={{
-                    color: '#374151',
-                    fontSize: '18px',
-                    fontWeight: '300',
-                    lineHeight: 1,
-                    flexShrink: 0,
-                    transition: 'color 0.2s ease',
-                  }}>
-                    —
-                  </span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+                    onMouseEnter={e => { e.currentTarget.style.color = '#f3f4f6'; e.currentTarget.querySelector('span').style.color = cat.color }}
+                    onMouseLeave={e => { e.currentTarget.style.color = '#9ca3af'; e.currentTarget.querySelector('span').style.color = '#374151' }}
+                  >
+                    <span style={{ color: '#374151', fontSize: '18px', fontWeight: '300', lineHeight: 1, flexShrink: 0, transition: 'color 0.2s ease' }}>—</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </div>
 
       <style>{`

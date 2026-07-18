@@ -275,7 +275,7 @@ const ContactPage = () => {
                         Full Name *
                       </label>
                       <input type="text" name="name" value={formData.name} onChange={handleChange}
-                        required placeholder="Jawad Ahmed" style={inp()}
+                        required placeholder="Your name" style={inp()}
                         onFocus={focusStyle} onBlur={blurStyle} />
                     </div>
                     <div>
@@ -284,7 +284,7 @@ const ContactPage = () => {
                         Email Address *
                       </label>
                       <input type="email" name="email" value={formData.email} onChange={handleChange}
-                        required placeholder="you@example.com" style={inp()}
+                        required placeholder="Your working email" style={inp()}
                         onFocus={focusStyle} onBlur={blurStyle} />
                     </div>
                   </div>
@@ -297,7 +297,7 @@ const ContactPage = () => {
                         Phone Number
                       </label>
                       <input type="tel" name="phone" value={formData.phone} onChange={handleChange}
-                        placeholder="+1 (555) 000-0000" style={inp()}
+                        placeholder="Your actual phone number" style={inp()}
                         onFocus={focusStyle} onBlur={blurStyle} />
                     </div>
                     <div>

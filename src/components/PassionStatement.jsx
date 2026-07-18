@@ -137,7 +137,7 @@ const PassionStatement = () => {
         display: 'flex',
         alignItems: 'stretch',
         width: '100%',
-        maxWidth: '1400px',
+        maxWidth: '1280px',
         margin: '0 auto'
       }}
         className="passion-layout"
