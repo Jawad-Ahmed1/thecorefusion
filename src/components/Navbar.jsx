@@ -175,9 +175,9 @@ const Navbar = () => {
 
           {/* CTA Button */}
           <div ref={btnRef} style={{ display: 'none' }} className="desktop-button">
-            <Link to="/contact" className="btn-primary" style={{ cursor: 'pointer', textDecoration: 'none' }}>
+            {/* <Link to="/contact" className="btn-primary" style={{ cursor: 'pointer', textDecoration: 'none' }}>
               Get Started
-            </Link>
+            </Link> */}
           </div>
 
           {/* Mobile Menu Button */}

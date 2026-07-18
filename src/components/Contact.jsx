@@ -107,8 +107,8 @@ const Contact = () => {
   const socialLinks = [
     { icon: FaLinkedinIn, url: '#', label: 'LinkedIn' },
     { icon: FaTwitter, url: '#', label: 'Twitter' },
-    { icon: FaInstagram, url: '#', label: 'Instagram' },
-    { icon: FaFacebookF, url: '#', label: 'Facebook' },
+    { icon: FaInstagram, url: 'https://www.instagram.com/thecorefusion?igsh=aGY3MG5kZXg4aml4', label: 'Instagram' },
+    { icon: FaFacebookF, url: 'https://www.facebook.com/share/1BPnFdVt3e/', label: 'Facebook' },
   ]
 
   const inputStyle = {

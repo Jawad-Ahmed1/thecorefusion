@@ -13,7 +13,7 @@ const HomePage = () => {
   return (
     <div>
       <Hero />
-      <ZoomShowcase />
+      {/* <ZoomShowcase /> */}
       <PassionStatement />
       <Capabilities />
       <AchieveSuccess />
