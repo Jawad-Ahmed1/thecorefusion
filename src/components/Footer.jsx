@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { FiArrowUp, FiArrowRight } from 'react-icons/fi'
+import { FiArrowUp } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -89,32 +89,12 @@ const Footer = () => {
               </h2>
               <p style={{
                 color: '#6b7280', fontSize: '14px',
-                lineHeight: '1.75', marginBottom: '24px',
+                lineHeight: '1.75',
                 maxWidth: '260px',
               }}>
                 Transforming ideas into digital success. Your trusted partner for
                 innovative web solutions and digital marketing.
               </p>
-              {/* Social pills */}
-              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                {['Facebook', 'Instagram', 'LinkedIn', 'Twitter'].map((s) => (
-                  <a key={s} href="#" style={{
-                    fontSize: '11px', fontWeight: '600', letterSpacing: '0.5px',
-                    color: '#6b7280', border: '1px solid #1f2937',
-                    borderRadius: '6px', padding: '5px 10px',
-                    textDecoration: 'none', transition: 'all 0.25s ease',
-                  }}
-                    onMouseEnter={e => {
-                      e.currentTarget.style.color = '#06b6d4'
-                      e.currentTarget.style.borderColor = '#06b6d4'
-                    }}
-                    onMouseLeave={e => {
-                      e.currentTarget.style.color = '#6b7280'
-                      e.currentTarget.style.borderColor = '#1f2937'
-                    }}
-                  >{s}</a>
-                ))}
-              </div>
             </div>
 
             {/* Col 2 — Quick Links */}
@@ -176,42 +156,9 @@ const Footer = () => {
               }}>
                 Stay Updated
               </h3>
-              <p style={{ color: '#6b7280', fontSize: '14px', lineHeight: '1.7', marginBottom: '16px' }}>
+              <p style={{ color: '#6b7280', fontSize: '14px', lineHeight: '1.7' }}>
                 Subscribe to our newsletter for the latest news and insights.
               </p>
-              <div style={{ display: 'flex', gap: '8px' }}>
-                <input
-                  type="email"
-                  placeholder="Your email"
-                  style={{
-                    flex: '1', minWidth: 0,
-                    padding: '10px 14px',
-                    backgroundColor: '#0d1117',
-                    border: '1px solid #1f2937',
-                    borderRadius: '8px',
-                    fontSize: '14px',
-                    color: '#f3f4f6',
-                    outline: 'none',
-                    transition: 'border-color 0.25s',
-                  }}
-                  onFocus={e => e.currentTarget.style.borderColor = '#06b6d4'}
-                  onBlur={e => e.currentTarget.style.borderColor = '#1f2937'}
-                />
-                <button
-                  style={{
-                    padding: '10px 14px', flexShrink: 0,
-                    background: 'linear-gradient(135deg, #06b6d4, #2563eb)',
-                    color: '#fff', fontWeight: '700',
-                    borderRadius: '8px', border: 'none',
-                    cursor: 'pointer', transition: 'opacity 0.25s',
-                    display: 'flex', alignItems: 'center',
-                  }}
-                  onMouseEnter={e => e.currentTarget.style.opacity = '0.85'}
-                  onMouseLeave={e => e.currentTarget.style.opacity = '1'}
-                >
-                  <FiArrowRight size={16} />
-                </button>
-              </div>
             </div>
 
           </div>
