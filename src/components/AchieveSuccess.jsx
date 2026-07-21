@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from 'react'
+import achieveImg from '../assets/website images/Ignite Your Sales Growth..png'
+import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { FiArrowRight } from 'react-icons/fi'
 import gsap from 'gsap'
@@ -191,7 +192,7 @@ const AchieveSuccess = () => {
               border: '1px solid rgba(255,255,255,0.06)'
             }}>
               <img
-                src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=1000&fit=crop&q=90"
+                src={achieveImg}
                 alt="Business growth and success"
                 style={{
                   width: '100%', height: '115%',

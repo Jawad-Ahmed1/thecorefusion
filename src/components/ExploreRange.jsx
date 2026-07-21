@@ -1,4 +1,7 @@
-import React, { useEffect, useRef } from 'react'
+import exploreImg1 from '../assets/website images/User Experience & Brand Strategy.png'
+import exploreImg2 from '../assets/website images/Website Development & Launch Readiness.png'
+import exploreImg3 from '../assets/website images/Strategic Marketing Beyond Launch.png'
+import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { FiArrowRight } from 'react-icons/fi'
 import gsap from 'gsap'
@@ -13,7 +16,7 @@ const steps = [
     title: 'User Experience & Brand Strategy',
     description:
       'Our focus is on creating seamless user experiences that leave a lasting impression on your audience while strategically positioning your brand for market domination. We enhance user satisfaction and drive your business towards unparalleled success.',
-    image: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=700&h=480&fit=crop&q=90',
+    image: exploreImg1,
     color: '#06b6d4',
   },
   {
@@ -22,7 +25,7 @@ const steps = [
     title: 'Website Development & Launch Readiness',
     description:
       'Our dedicated team crafts an exceptional website tailored to your needs, ensuring a smooth user experience and captivating design. With meticulous attention to detail, we prepare for a seamless post-launch phase, guaranteeing your website\'s optimal performance and success in the digital realm.',
-    image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=700&h=480&fit=crop&q=90',
+    image: exploreImg2,
     color: '#a855f7',
   },
   {
@@ -31,7 +34,7 @@ const steps = [
     title: 'Strategic Marketing Beyond Launch',
     description:
       'After your website launch, we don\'t stop there. With a keen eye on data-driven insights, we manage your digital presence with precision, ensuring your brand continues to thrive and evolve in the competitive landscape — setting the stage for sustained growth and continued success.',
-    image: 'https://images.unsplash.com/photo-1460925895917-adf4e565db18?w=700&h=480&fit=crop&q=90',
+    image: exploreImg3,
     color: '#3b82f6',
   },
 ]

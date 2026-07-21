@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from 'react'
+import capabilitiesImg from '../assets/website images/comprehensive service,creative branding,stunning ui ux design.png'
+import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { FiLayers, FiPenTool, FiTrendingUp } from 'react-icons/fi'
@@ -287,7 +288,7 @@ const Capabilities = () => {
             }}>
               <img
                 ref={imageRef}
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=900&h=1100&fit=crop&q=90"
+                src={capabilitiesImg}
                 alt="Creative team collaborating"
                 style={{
                   width: '100%',

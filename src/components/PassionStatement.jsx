@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react'
+import passionImg from '../assets/website images/MADE WITH PASSION modern and cutting approach.png'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FiArrowRight } from 'react-icons/fi'
 import gsap from 'gsap'
@@ -158,7 +159,7 @@ const PassionStatement = () => {
           className="passion-image-col"
         >
           <img
-            src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=600&h=800&fit=crop&q=90"
+            src={passionImg}
             alt="Creative work"
             style={{
               width: '100%',

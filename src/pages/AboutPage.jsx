@@ -150,8 +150,8 @@ const WhoWeAre = () => {
         </div>
         <div ref={rightRef} style={{ opacity: 0, borderRadius: '20px', overflow: 'hidden',
           border: '1px solid #1a2234', position: 'relative', height: '480px' }}>
-          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=960&fit=crop&q=90"
-            alt="Team collaborating" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+          <img src="/src/assets/website images/who we are.png"
+            alt="Who We Are" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
           <div style={{ position: 'absolute', inset: 0,
             background: 'linear-gradient(135deg, rgba(6,182,212,0.2) 0%, transparent 60%)' }} />
           <div style={{ position: 'absolute', bottom: '24px', left: '24px', right: '24px',
