@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+import whoWeAreImg from '../assets/website images/who we are.png'
 import { Link } from 'react-router-dom'
 import {
   FiTarget, FiEye, FiHeart, FiZap, FiUsers,
@@ -150,7 +151,7 @@ const WhoWeAre = () => {
         </div>
         <div ref={rightRef} style={{ opacity: 0, borderRadius: '20px', overflow: 'hidden',
           border: '1px solid #1a2234', position: 'relative', height: '480px' }}>
-          <img src="/src/assets/website images/who we are.png"
+          <img src={whoWeAreImg}
             alt="Who We Are" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
           <div style={{ position: 'absolute', inset: 0,
             background: 'linear-gradient(135deg, rgba(6,182,212,0.2) 0%, transparent 60%)' }} />
