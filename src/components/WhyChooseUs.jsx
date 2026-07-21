@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+import whyImg from '../assets/website images/website-image-7.png'
 import { FiZap, FiAward, FiTrendingUp, FiShield } from 'react-icons/fi'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -235,7 +236,7 @@ const WhyChooseUs = () => {
               border: '1px solid rgba(255,255,255,0.05)'
             }} className="why-img-frame">
               <img
-                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=1100&fit=crop&q=90"
+                src={whyImg}
                 alt="Expert team working"
                 style={{
                   width: '100%', height: '115%',
