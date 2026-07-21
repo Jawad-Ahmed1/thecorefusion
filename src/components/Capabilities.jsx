@@ -285,7 +285,7 @@ const Capabilities = () => {
               boxShadow: '0 30px 80px rgba(0,0,0,0.5)',
               height: '580px',
               position: 'relative'
-            }}>
+            }} className="cap-img-frame">
               <img
                 ref={imageRef}
                 src={capabilitiesImg}
@@ -309,10 +309,11 @@ const Capabilities = () => {
             {/* Floating Stats Badge — Top Left */}
             <div
               ref={badgeRef}
+              className="cap-badge"
               style={{
                 position: 'absolute',
                 top: '-20px',
-                left: '-30px',
+                left: '-20px',
                 backgroundColor: '#111827',
                 border: '1px solid #374151',
                 borderRadius: '14px',
@@ -340,10 +341,10 @@ const Capabilities = () => {
             </div>
 
             {/* Floating Stats Badge — Bottom Right */}
-            <div style={{
+            <div className="cap-badge" style={{
               position: 'absolute',
               bottom: '-20px',
-              right: '-20px',
+              right: '-10px',
               backgroundColor: '#111827',
               border: '1px solid #374151',
               borderRadius: '14px',
@@ -396,9 +397,12 @@ const Capabilities = () => {
           to   { transform: rotate(360deg); }
         }
         @media (max-width: 900px) {
-          .capabilities-grid {
-            grid-template-columns: 1fr !important;
-          }
+          .capabilities-grid { grid-template-columns: 1fr !important; }
+          .cap-img-frame { height: 340px !important; }
+        }
+        @media (max-width: 640px) {
+          .capabilities-grid > div:last-child .cap-badge { display: none !important; }
+          .cap-img-frame { height: 260px !important; }
         }
       `}</style>
     </section>

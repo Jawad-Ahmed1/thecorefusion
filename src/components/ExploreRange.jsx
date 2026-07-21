@@ -178,7 +178,7 @@ const ExploreRange = () => {
 
                   {/* Big step number watermark */}
                   <div style={{
-                    fontSize: '120px', fontWeight: '900', lineHeight: 1,
+                    fontSize: 'clamp(60px, 15vw, 120px)', fontWeight: '900', lineHeight: 1,
                     color: 'rgba(255,255,255,0.03)',
                     marginBottom: '-20px', userSelect: 'none',
                     fontFamily: 'monospace'
@@ -299,8 +299,11 @@ const ExploreRange = () => {
           .step-row {
             grid-template-columns: 1fr !important;
             direction: ltr !important;
-            gap: 40px !important;
+            gap: 32px !important;
           }
+        }
+        @media (max-width: 640px) {
+          .step-row { gap: 24px !important; }
         }
       `}</style>
     </section>

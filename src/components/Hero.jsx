@@ -63,7 +63,7 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="banner-style-one"
+      className="banner-style-one hero-section"
       style={{
         position: 'relative',
         paddingTop: '80px',
@@ -135,7 +135,7 @@ const Hero = () => {
           flexWrap: 'wrap'
         }}>
           {/* Left Content */}
-          <div ref={headlineRef} style={{ flex: '1', minWidth: '300px', opacity: 0 }}>
+          <div ref={headlineRef} style={{ flex: '1', minWidth: '260px', opacity: 0 }}>
             <h1 style={{
               fontSize: 'clamp(36px, 6vw, 80px)',
               fontWeight: '800',
@@ -158,7 +158,7 @@ const Hero = () => {
           {/* Right Content - Circular Badge */}
           <div ref={badgeRef} style={{
             flex: '1',
-            minWidth: '300px',
+            minWidth: '220px',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -211,6 +211,10 @@ const Hero = () => {
         @keyframes heroPulse {
           0%, 100% { transform: scale(1); box-shadow: 0 0 60px rgba(6,182,212,0.4); }
           50% { transform: scale(1.05); box-shadow: 0 0 80px rgba(6,182,212,0.6); }
+        }
+        @media (max-width: 640px) {
+          .hero-section { padding-top: 40px !important; padding-bottom: 60px !important; }
+          .hero-section h1 { padding-top: 80px !important; letter-spacing: -1px !important; }
         }
       `}</style>
     </section>

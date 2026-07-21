@@ -233,7 +233,7 @@ const WhyChooseUs = () => {
               height: '560px', position: 'relative',
               boxShadow: '0 40px 100px rgba(0,0,0,0.55)',
               border: '1px solid rgba(255,255,255,0.05)'
-            }}>
+            }} className="why-img-frame">
               <img
                 src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=1100&fit=crop&q=90"
                 alt="Expert team working"
@@ -252,8 +252,9 @@ const WhyChooseUs = () => {
             {/* Floating badge — top right */}
             <div
               ref={badgeRef}
+              className="why-badge"
               style={{
-                position: 'absolute', top: '-20px', right: '-24px',
+                position: 'absolute', top: '-20px', right: '-10px',
                 backgroundColor: '#0d1117',
                 border: '1px solid rgba(168,85,247,0.35)',
                 borderRadius: '14px', padding: '20px 24px',
@@ -275,8 +276,8 @@ const WhyChooseUs = () => {
             </div>
 
             {/* Bottom-left badge */}
-            <div style={{
-              position: 'absolute', bottom: '-20px', left: '-24px',
+            <div className="why-badge" style={{
+              position: 'absolute', bottom: '-20px', left: '-16px',
               backgroundColor: '#0d1117',
               border: '1px solid rgba(6,182,212,0.3)',
               borderRadius: '14px', padding: '18px 22px',
@@ -321,6 +322,11 @@ const WhyChooseUs = () => {
         }
         @media (max-width: 900px) {
           .why-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+          .why-img-frame { height: 360px !important; }
+          .why-badge { display: none !important; }
+        }
+        @media (max-width: 640px) {
+          .why-img-frame { height: 260px !important; }
         }
       `}</style>
     </section>

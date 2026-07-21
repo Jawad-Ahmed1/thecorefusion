@@ -186,7 +186,7 @@ const ServiceSection = ({ service, index }) => {
       }}
     >
       <div
-        className="container-custom"
+        className="container-custom service-row"
         style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
@@ -264,7 +264,7 @@ const ServiceSection = ({ service, index }) => {
             borderRadius: '20px',
             border: `1px solid ${service.color}30`,
             background: `linear-gradient(135deg, ${service.color}08 0%, rgba(17,24,39,0.8) 100%)`,
-            padding: '60px 52px',
+            padding: 'clamp(28px, 5vw, 60px) clamp(24px, 4vw, 52px)',
             position: 'relative',
             overflow: 'hidden',
           }}>
@@ -325,10 +325,10 @@ const ServiceSection = ({ service, index }) => {
 
       <style>{`
         @media (max-width: 900px) {
-          .service-row { grid-template-columns: 1fr !important; direction: ltr !important; gap: 40px !important; }
+          .service-row { grid-template-columns: 1fr !important; direction: ltr !important; gap: 40px !important; padding: 0 20px !important; }
         }
-        @media (max-width: 900px) {
-          .container-custom { padding-left: 20px !important; padding-right: 20px !important; }
+        @media (max-width: 640px) {
+          .service-row { padding: 0 16px !important; }
         }
       `}</style>
     </div>
@@ -348,7 +348,7 @@ const PageHero = () => {
   return (
     <div ref={ref} style={{
       textAlign: 'center',
-      padding: '140px 48px 100px',
+      padding: 'clamp(100px, 15vw, 140px) clamp(16px, 5vw, 48px) clamp(60px, 10vw, 100px)',
       borderBottom: '1px solid #1a2234',
       position: 'relative', overflow: 'hidden',
       backgroundColor: '#07090f',

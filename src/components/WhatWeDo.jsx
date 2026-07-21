@@ -246,6 +246,8 @@ const WhatWeDo = () => {
           .whatwedo-grid { grid-template-columns: repeat(2, 1fr) !important; }
           .whatwedo-grid > div:nth-child(2) { border-right: none !important; }
           .whatwedo-grid > div:nth-child(3) { border-right: 1px solid #1a2234 !important; }
+          .whatwedo-grid > div:nth-child(3),
+          .whatwedo-grid > div:nth-child(4) { border-top: 1px solid #1a2234 !important; }
         }
         @media (max-width: 600px) {
           .whatwedo-grid { grid-template-columns: 1fr !important; }

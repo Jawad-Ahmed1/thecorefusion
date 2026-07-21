@@ -190,7 +190,7 @@ const AchieveSuccess = () => {
               height: '520px', position: 'relative',
               boxShadow: '0 40px 100px rgba(0,0,0,0.6)',
               border: '1px solid rgba(255,255,255,0.06)'
-            }}>
+            }} className="achieve-img-frame">
               <img
                 src={achieveImg}
                 alt="Business growth and success"
@@ -209,8 +209,9 @@ const AchieveSuccess = () => {
             {/* Floating Stat Badge */}
             <div
               ref={statRef}
+              className="achieve-stat-badge"
               style={{
-                position: 'absolute', bottom: '-24px', left: '-32px',
+                position: 'absolute', bottom: '-24px', left: '-16px',
                 backgroundColor: '#0d1117',
                 border: '1px solid rgba(6,182,212,0.3)',
                 borderRadius: '16px', padding: '24px 28px',
@@ -255,6 +256,11 @@ const AchieveSuccess = () => {
         }
         @media (max-width: 900px) {
           .achieve-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+          .achieve-img-frame { height: 340px !important; }
+          .achieve-stat-badge { display: none !important; }
+        }
+        @media (max-width: 640px) {
+          .achieve-img-frame { height: 260px !important; }
         }
       `}</style>
     </section>

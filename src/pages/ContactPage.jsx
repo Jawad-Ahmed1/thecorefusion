@@ -238,7 +238,7 @@ const ContactPage = () => {
           <div ref={rightRef} style={{ opacity: 0 }}>
             <div style={{
               backgroundColor: 'rgba(17,24,39,0.6)', border: '1px solid #1e2d40',
-              borderRadius: '20px', padding: '48px 44px',
+              borderRadius: '20px', padding: 'clamp(24px, 5vw, 48px) clamp(20px, 4vw, 44px)',
               backdropFilter: 'blur(10px)',
               boxShadow: '0 30px 80px rgba(0,0,0,0.4)',
             }}>

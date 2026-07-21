@@ -66,7 +66,7 @@ const AboutHero = () => {
   }, [])
   return (
     <div ref={ref} style={{
-      textAlign: 'center', padding: '130px 24px 90px',
+      textAlign: 'center', padding: 'clamp(100px, 15vw, 130px) clamp(16px, 5vw, 24px) clamp(60px, 10vw, 90px)',
       borderBottom: '1px solid #1a2234', backgroundColor: '#07090f',
       position: 'relative', overflow: 'hidden',
     }}>
@@ -121,7 +121,7 @@ const WhoWeAre = () => {
   }, [])
   return (
     <div style={{ backgroundColor: '#07090f', padding: '100px 0', borderBottom: '1px solid #1a2234' }}>
-      <div className="container-custom" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center', padding: '0 48px' }} className2="about-2col">
+      <div className="container-custom about-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center', padding: '0 48px' }}>
         <div ref={leftRef} style={{ opacity: 0 }}>
           <p style={{ fontSize: '11px', fontWeight: '700', letterSpacing: '3px', color: '#06b6d4',
             textTransform: 'uppercase', marginBottom: '16px' }}>WHO WE ARE</p>
@@ -150,7 +150,7 @@ const WhoWeAre = () => {
           ))}
         </div>
         <div ref={rightRef} style={{ opacity: 0, borderRadius: '20px', overflow: 'hidden',
-          border: '1px solid #1a2234', position: 'relative', height: '480px' }}>
+          border: '1px solid #1a2234', position: 'relative', height: '480px' }} className="about-img-frame">
           <img src={whoWeAreImg}
             alt="Who We Are" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
           <div style={{ position: 'absolute', inset: 0,
@@ -209,7 +209,8 @@ const StatsSection = () => {
       <style>{`
         @media(max-width:768px){.stats-grid{grid-template-columns:repeat(2,1fr)!important}}
         @media(max-width:480px){.stats-grid{grid-template-columns:1fr!important}}
-        @media(max-width:900px){.about-2col{grid-template-columns:1fr!important;padding:0 20px!important}}
+        @media(max-width:900px){.about-2col{grid-template-columns:1fr!important;gap:48px!important;padding:0 20px!important}.about-img-frame{height:320px!important}}
+        @media(max-width:640px){.about-2col{padding:0 16px!important}.about-img-frame{height:260px!important}}
       `}</style>
     </div>
   )
@@ -313,6 +314,7 @@ const Timeline = () => {
     })
   }, [])
   return (
+    <>
     <div style={{ backgroundColor: '#07090f', padding: '100px 0', borderBottom: '1px solid #1a2234' }}>
       <div className="container-custom" style={{ padding: '0 48px' }}>
         <FadeUp style={{ textAlign: 'center', marginBottom: '72px' }}>
@@ -322,20 +324,21 @@ const Timeline = () => {
             How We <span className="gradient-text">Got Here</span>
           </h2>
         </FadeUp>
-        <div style={{ position: 'relative', maxWidth: '800px', margin: '0 auto' }}>
+        <div style={{ position: 'relative', maxWidth: '800px', margin: '0 auto' }} className="timeline-wrap">
           {/* Centre line */}
-          <div style={{ position: 'absolute', left: '50%', top: 0, bottom: 0,
+          <div className="timeline-line" style={{ position: 'absolute', left: '50%', top: 0, bottom: 0,
             width: '1px', backgroundColor: '#1a2234', transform: 'translateX(-50%)' }} />
           {timeline.map((item, i) => {
             const isLeft = i % 2 === 0
             return (
               <div key={i} ref={el => itemRefs.current[i] = el}
+                className="timeline-item"
                 style={{ display: 'flex', justifyContent: isLeft ? 'flex-end' : 'flex-start',
                   paddingRight: isLeft ? 'calc(50% + 32px)' : '0',
                   paddingLeft: isLeft ? '0' : 'calc(50% + 32px)',
                   marginBottom: '48px', opacity: 0, position: 'relative' }}>
                 {/* Dot on line */}
-                <div style={{ position: 'absolute', left: '50%', top: '20px',
+                <div className="timeline-dot" style={{ position: 'absolute', left: '50%', top: '20px',
                   transform: 'translateX(-50%)', width: '14px', height: '14px',
                   borderRadius: '50%', backgroundColor: '#06b6d4',
                   border: '3px solid #07090f', zIndex: 2,
@@ -356,6 +359,14 @@ const Timeline = () => {
         </div>
       </div>
     </div>
+    <style>{`
+      @media(max-width:700px){
+        .timeline-line { left: 20px !important; }
+        .timeline-item { justify-content: flex-start !important; padding-left: 52px !important; padding-right: 0 !important; }
+        .timeline-item > .timeline-dot { left: 13px !important; }
+      }
+    `}</style>
+    </>
   )
 }
 

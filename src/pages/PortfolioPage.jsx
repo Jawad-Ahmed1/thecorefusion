@@ -317,7 +317,6 @@ const PortfolioPage = () => {
 
       {/* ── Filter + Grid ── */}
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '80px 48px' }} className="portfolio-wrap">
-
         {/* Filter tabs */}
         <div ref={filterRef} style={{
           display: 'flex', gap: '10px', flexWrap: 'wrap',
@@ -377,6 +376,7 @@ const PortfolioPage = () => {
         @media(max-width:1024px){ .portfolio-grid{grid-template-columns:repeat(2,1fr)!important} }
         @media(max-width:640px) { .portfolio-grid{grid-template-columns:1fr!important} }
         @media(max-width:768px) { .stats-bar{grid-template-columns:repeat(2,1fr)!important} .portfolio-wrap{padding:60px 20px!important} }
+        @media(max-width:480px) { .stats-bar{grid-template-columns:repeat(2,1fr)!important; font-size:12px} .portfolio-wrap{padding:40px 16px!important} }
       `}</style>
     </div>
   )

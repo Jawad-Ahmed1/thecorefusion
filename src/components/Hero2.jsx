@@ -73,7 +73,7 @@ const Hero2 = () => {
         pointerEvents: 'none', zIndex: 0,
       }} />
 
-      <div className="container-custom" style={{
+      <div className="container-custom hero2-grid" style={{
         width: '100%',
         display: 'grid',
         gridTemplateColumns: '1fr 1fr',
@@ -81,7 +81,7 @@ const Hero2 = () => {
         alignItems: 'center',
         position: 'relative', zIndex: 1,
         padding: '80px 64px',
-      }} className2="hero2-grid">
+      }}>
 
         {/* ── LEFT ── */}
         <div style={{ paddingRight: '40px' }}>
